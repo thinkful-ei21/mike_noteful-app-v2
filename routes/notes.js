@@ -6,17 +6,32 @@ const express = require('express');
 const router = express.Router();
 
 // TEMP: Simple In-Memory Database
+/* 
 const data = require('../db/notes');
 const simDB = require('../db/simDB');
 const notes = simDB.initialize(data);
+ */
+
+// require knex.js
+const knex = require('../knex');
 
 // Get All (and search by query)
 router.get('/', (req, res, next) => {
   const { searchTerm } = req.query;
 
-  notes.filter(searchTerm)
-    .then(list => {
-      res.json(list);
+  //notes.filter(searchTerm)
+
+  knex
+    .select('notes.id', 'title', 'content')
+    .from('notes')
+    .modify(queryBuilder => {
+      if (searchTerm) {
+        queryBuilder.where('title', 'like', `%${searchTerm}%`);
+      }
+    })
+    .orderBy('notes.id')
+    .then(result => {
+      res.json(result);
     })
     .catch(err => {
       next(err);
@@ -27,7 +42,10 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
-  notes.find(id)
+  //notes.find(id)
+  knex('notes')
+    .first()
+    .where('id', id)
     .then(item => {
       if (item) {
         res.json(item);
@@ -61,7 +79,12 @@ router.put('/:id', (req, res, next) => {
     return next(err);
   }
 
-  notes.update(id, updateObj)
+  //notes.update(id, updateObj)
+
+  knex('notes')
+    .where('id', id)
+    .update(updateObj)
+    .returning(['title', 'content'])
     .then(item => {
       if (item) {
         res.json(item);
