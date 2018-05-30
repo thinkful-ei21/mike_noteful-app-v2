@@ -58,10 +58,9 @@ knex('notes')
   .catch(err => {
     console.error(err);
   });
- */
- */
+ 
   // Create a Note accepts an object with the note properties and inserts it in the DB. It returns the new note (including the new id) as an object.
-/* let newNote = {
+/let newNote = {
   title: 'Yet another new note for my list', 
   content: 'More content more content More content more content'
 };
@@ -72,15 +71,15 @@ knex('notes')
   .then( results => console.log(JSON.stringify(results, null, 2)))
   .catch( err => (console.log(err))
   );
- */
+ 
 
 // Delete Note By Id accepts an ID and deletes the note from the DB.
-// let idToDelete = 2;
-// knex('notes')
-//   .where('id', idToDelete)
-//   .del()
-//   .debug(true)
-//   .then( results => console.log(JSON.stringify(results, null, 2)))
-//   .catch( err => (console.log(err))
-//   );
+let idToDelete = 2;
+knex('notes')
+  .where('id', idToDelete)
+  .del()
+  .debug(true)
+  .then( results => console.log(JSON.stringify(results, null, 2)))
+  .catch( err => (console.log(err))
+  );
 
