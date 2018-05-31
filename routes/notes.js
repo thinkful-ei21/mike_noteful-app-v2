@@ -15,7 +15,7 @@ const notes = simDB.initialize(data);
 // require knex.js
 const knex = require('../knex');
 
-// Get All (and search by query)
+// GET All (and search by query)
 router.get('/', (req, res, next) => {
   const { searchTerm } = req.query;
 
@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-// Get a single item
+// GET a single item by id
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
@@ -55,7 +55,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-// Put update an item
+// PUT update an item
 router.put('/:id', (req, res, next) => {
   const id = req.params.id;
 
@@ -92,7 +92,7 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-// Post (insert) an item
+// POST (insert) an item
 router.post('/', (req, res, next) => {
   const { title, content } = req.body;
 

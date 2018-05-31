@@ -60,10 +60,11 @@ knex('notes')
   });
  
   // Create a Note accepts an object with the note properties and inserts it in the DB. It returns the new note (including the new id) as an object.
-/let newNote = {
+let newNote = {
   title: 'Yet another new note for my list', 
   content: 'More content more content More content more content'
 };
+
 knex('notes')
   .insert(newNote)
   .debug(true)
