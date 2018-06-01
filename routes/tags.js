@@ -20,6 +20,7 @@ router.get('/', (req,res,next) => {
     .catch(err => next(err));
 });
 
+// GET specific tag by id
 router.get('/:id', (req,res,next) => {
   const id = req.params.id;
 
@@ -36,6 +37,7 @@ router.get('/:id', (req,res,next) => {
     .catch( err => next(err));
 });
 
+// POST a new tag
 router.post('/', (req,res,next) => {
   const { name } = req.body;
   const newTag = { name };
@@ -59,5 +61,60 @@ router.post('/', (req,res,next) => {
     })
     .catch(err => next(err));
 });
+
+
+// PUT (update) an existing tag
+router.put('/:id', (req,res,next) => {
+  const id = req.params.id;
+  const updateObj = {};
+  const updateableFields = ['name'];
+
+  // if request body matches expected input
+  updateableFields.forEach(field => {
+    if(field in req.body) {
+      updateObj[field] = req.body[field];
+    }
+  });
+
+  // validate input
+  if (!updateObj.name) {
+    const err = new Error('missing `name` in request body');
+    err.status = 400;
+    return next(err);
+  }
+
+  // update object
+  knex('tags')
+    .where('id', id)
+    .update(updateObj)
+    .debug(true)
+    .returning(['name','id'])
+    .then(([results]) => {
+      if(results) {
+        res.json(results);
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
+    
+});
+
+// DELETE a tag by id
+router.delete('/:id', (req,res,next) => {
+  const id = req.params.id;
+
+  knex('tags')
+    .where('id', id)
+    .del()
+    .debug(true)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(err => next(err));
+});
+
 
 module.exports = router;
