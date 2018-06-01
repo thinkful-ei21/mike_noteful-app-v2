@@ -108,7 +108,6 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-
 // POST (insert) an item
 router.post('/', (req, res, next) => {
   const { title, content, folderId } = req.body;

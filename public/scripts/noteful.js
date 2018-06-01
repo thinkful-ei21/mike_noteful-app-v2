@@ -256,7 +256,6 @@ const noteful = (function () {
         store.currentNote = {};
       }
 
-      console.info('Delete a folder, coming soon...');
       api.remove(`/api/folders/${folderId}`)
         .then(() => {
           return api.search('/api/folders');
