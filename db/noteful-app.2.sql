@@ -45,7 +45,7 @@ VALUES
 
 INSERT INTO notes (title,content,folder_id)
 VALUES ('Water Plants','My plants are thisrty',100),
-  ('Wash Dishes','My dishes are dirty',null),
+  ('Wash Dishes','My dishes are dirty',101),
   ('Read about SQL','Learning SQL is fun!',103),
   ('Call Mom','Mom called yesterday, I need to call her back',null),
   ('Exercise','You''re out of shape! Go to the Gym',102),
@@ -64,8 +64,7 @@ VALUES
 INSERT INTO notes_tags (note_id, tag_id)
 VALUES 
   (1001, 1),
-  (1001, 1),
-  (1002, 1),(1001, 1),(1001, 1),
+  (1002, 1),(1002, 2),(1002, 3),
   (1003, 3),
   (1004, 2),
   (1005, 1),(1005, 2),(1005, 3),(1005, 4),
