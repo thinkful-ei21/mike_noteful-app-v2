@@ -97,7 +97,6 @@ router.put('/:id', (req, res, next) => {
     return next(err);
   }
   
-  console.log('id');
   knex('notes')
     .update(updateObj)
     .where('id', noteId)
@@ -165,7 +164,6 @@ router.post('/', (req, res, next) => {
         .where('notes.id', noteId);
     })
     .then(result => {
-      console.log(result);
       if (result) {
         // Hydrate the results
         const hydrated = hydrateNotes(result);
